@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Dashboard from "./component/Dashboard";
+import LogIn from "./component/LogIn";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import { useState } from "react";
+import useToken from "./component/useToken";
+
 
 function App() {
+  const [Authentication, setAuthentication] = useState(false);
+  const { token, setToken } = useToken();
+ 
+  
+
+if (!Authentication) {
+  return (<LogIn setAuthentication={setAuthentication} setToken={setToken} token={token} />
+  );
+}
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+    <h1 className="main-heading">Log In</h1>
+    <BrowserRouter>
+     <Switch>
+       <Route path="/"><Dashboard/></Route>
+       <Route path="/"><LogIn/></Route>
+     </Switch>
+    </BrowserRouter>
     </div>
   );
 }
