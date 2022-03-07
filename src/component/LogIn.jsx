@@ -1,58 +1,96 @@
+import lock from "../pics/lock.png"
+import icon from "../pics/icon.png"
 import "./LogIn.css";
-import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
-const loginPatient =  async(deed) =>{
-    return fetch("http://localhost:8080/login", {
-        method:"POST",
-        header: {
-    "Content-Type":"application/json",
-    },
-    body:JSON.stringify(deed)
-}).then(info => info.json());
-};
+export default function LogIn({ setToken, setLoading }) {
+  const [inputUsername, setinputUsername] = useState("");
+  const [inputPassword, setinputPassword] = useState("");
+  const [deed, setDeed] = useState(null);
+  const [info, setInfo] = useState(null);
 
-export default function LogIn({setInputUsername, setInputPassword, setToken}) {
-    const [Username, setUsername] = useState();
-    const [Password, setPassword] = useState();
+  function submitInput(e) {
+    e.preventDefault();
+    setDeed({ inputUsername, inputPassword, dataBase: "token" });
+  }
 
+  function validate({ inputUsername, inputPassword, dataBase }) {
+    const parsedData = JSON.parse(localStorage.getItem(dataBase));
+    const token = parsedData.find(({ username }) => username === inputUsername);
 
-
-    const submitBtn = async (e) => {
-        e.preventDefault();
-        const token = await loginPatient ();
-        setToken(token);
-        s
-    };
-
-
-    if(token) {
-        const { username, password } = token;
-        if (inputUsername === username && inputPassword === password){
-            console.log("Congrats")
-        }
+    if (token) {
+      const { username, password } = token;
+      if (username === inputUsername && password === inputPassword) {
+        return true;
+      } else {
+        setInfo("Invalid password");
+        setTimeout(() => {
+          setInfo("");
+        }, 2000);
+        setinputPassword("");
+        return false;
+      }
+    } else {
+      setInfo("Invalid information");
+      setTimeout(() => {
+        setInfo("");
+      }, 2000);
+      setinputUsername("");
+      setinputPassword("");
+      return false;
     }
+  }
 
-    return (
-        <div className="container">
-            <form onSubmit={submitBtn}>
-                <label>
-                    <h1>Log In</h1>
-                    <input type="text" onChange={(e)=>
-                        setinputUsername(e.target.value)}/>
-                </label>
-                 <label>
-                     <input type="password"  onChange={(e) => 
-                         setinputPassword(e.target.value)}/>
-                </label>
-                 <div>
-                     <button type="submit">Submit</button>
-                </div>
-            </form>
+  useEffect(() => { 
+    deed &&
+      setTimeout(() => {
+        setToken(validate(deed));
+      }, 5000);
+  }, [deed, setToken, setLoading]);
+
+  
+  return (
+    <div className="container">
+        <div className="top">
+        <h1>Log In</h1>
+        <div className="pop">
+        <h2>{info && info}</h2>
         </div>
-    );
-}
+        </div>
+        <div className="bottom-card">
+          <form onSubmit={submitInput}>
+                
+               <div className="bottom">
+                    <img src={icon} alt="username" className="left-side" />
+                    <input
+                    className="username"
+                    type="text"
+                    onChange={(e) => setinputUsername(e.target.value)}
+                    value={inputUsername}
+                    required
+                    placeholder=" Username"
+                    />
+                </div>
 
-LogIn.prototype ={
-    setToken: PropTypes.func.isRequired
+                <div className="bottom1">
+                    <img src={lock} alt="lock" className="left-side" />
+                    <input
+                    className="password"
+                    type="password"
+                    onChange={(e) => setinputPassword(e.target.value)}
+                    value={inputPassword}
+                    required
+                    placeholder=" Password"/>
+                </div>
+                <div className="button">
+                    <input
+                    className="forms"
+                    type="submit"
+                    placeholder="Login"
+                    />
+                </div>
+          </form>
+      </div>
+    </div>
+  );
 }

@@ -1,4 +1,61 @@
-.container {
+body {
+  height: 90vh;
+  background-color: #ececec;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+.container {
+  background-color: white;
+  width: 500px;
+}
+.top {
+  background-image: url(/src/pics/doctors1.jpg);
+  background-repeat: no-repeat;
+  color: black;
+  width: 500px;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.top h1,
+.top h2 {
+  text-shadow: -2px 2px 5px rgb(255, 255, 255, 1);
+}
+.pop {
+  height: 30px;
+}
+.bottom-card {
+  padding: 10px;
+}
+form {
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.left-side {
+  width: 40px;
+}
+.bottom,
+.bottom1,
+.button {
+  display: inline-flex;
+  margin: 10px;
+}
+.button input {
+  width: 10vw;
+  text-align: center;
+  background-color: #42c2ff;
+}
+.username,
+.password {
+  margin: 10px;
+  border: 2px solid #42c2ff;
+  width: 11rem;
+  height: 2rem;
+  border-radius: 10vh;
 }

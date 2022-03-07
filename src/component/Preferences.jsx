@@ -1,11 +1,8 @@
-import React from 'react';
+import React from "react";
 
-function Preferences(props) {
-    return (
-        <div>
-            <h1>Preferences</h1>
-        </div>
-    );
+function Preferences() {
+  return <form></form>;
 }
+
 
 export default Preferences;
