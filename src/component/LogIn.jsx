@@ -26,7 +26,7 @@ export default function LogIn({ setToken, setLoading }) {
         setInfo("Invalid password");
         setTimeout(() => {
           setInfo("");
-        }, 2000);
+        }, 5000);
         setinputPassword("");
         return false;
       }
@@ -34,7 +34,7 @@ export default function LogIn({ setToken, setLoading }) {
       setInfo("Invalid information");
       setTimeout(() => {
         setInfo("");
-      }, 2000);
+      }, 5000);
       setinputUsername("");
       setinputPassword("");
       return false;
@@ -48,7 +48,7 @@ export default function LogIn({ setToken, setLoading }) {
       }, 5000);
   }, [deed, setToken, setLoading]);
 
-  
+
   return (
     <div className="container">
         <div className="top">
